@@ -7,11 +7,11 @@
 	<script src="script/script.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<style>
-      #emailVal,#phone:invalid {
+      #emailVal:invalid {
         border: 2px solid red;
       }
 
-      #emailVal,#phone:valid {
+      #emailVal:valid {
         border: 2px solid green;
       }
     </style>
@@ -28,7 +28,7 @@
 
 					<input type="password"  name="pswd2"class="form-control" placeholder="Confirm Password" minlength="4" maxlength="10" required>
 					<input type="text" class="form-control" placeholder="address">
-					<input type="number" class="form-control" placeholder="Phone Number" max="10" id="phone" onfocusout="mobileNumber();">
+					<input type="number" class="form-control" placeholder="Phone Number" maxlength="10"  id="phone" onfocusout="mobileNumber();">
 					
 				</div>
 				<div class="otp_container">
@@ -54,24 +54,26 @@ $(document).ready(function(){
 function checkEmail() {
         var email = document.getElementById("emailVal");
         var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!filter.test(email.value)) {
+        if (!filter.test(email.value))
+		{
             alert('Please provide a valid email address');
+			
             email.focus;
             return false;
         }
-    }
-	
-	function mobileNumber(){
-
-var Number = document.getElementById('phone');
-var IndNum = /^[0]?[6789]\d{9}$/;
-
-if(!IndNum.test(Number.value)){
-   alert('please enter valid mobile number');
-   phone.focus;
-   return false;
 }
+	
+function mobileNumber()
+{
+	var Number = document.getElementById('phone');
+	var IndNum =/^[6-9]\d{9}$/;
+	if(!IndNum.test(Number.value)){
+	   alert('please enter valid mobile number');
+		
+	phone.focus;
+	return false;
 	}
+}
 
 
 
