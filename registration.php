@@ -32,11 +32,11 @@
 				<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
 					</div>
 				<div class="otp_container">
-					<input type="email" class="form-control" placeholder="emailid" id="emailVal"   ><div id="errorEmail"  ></div>
+					<input type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
 					<button class="otp-input"  onclick="checkEmail();">Get OTP</button>
 				</div>
-				<div class="input-container" id="otp-container">
-					<input type="text" class="form-control" placeholder="OTP" >
+				<div class="input-container" id="otp-container" >
+					<input type="text" class="form-control"   placeholder="OTP" >
 				</div>
 				<hr>
 				<input type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
@@ -46,17 +46,13 @@
 </body>
 </html>
 <script>
-//$(document).ready(function(){
-//	$(".otp-input").click(function(){
-		
-//		$("#otp-container").css('display','block');	
-//		}	
-	
-//});
+
+
 function checkEmail() {
         var email = document.getElementById("emailVal");
         var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!filter.test(email.value))
+         
+		if (!filter.test(email.value))
 		{
 			emailVal.classList.add("invalid");
 			document.getElementById("errorEmail").innerHTML="please enter valid Email ID";
@@ -67,9 +63,19 @@ function checkEmail() {
 			emailVal.classList.add("valid");
 			document.getElementById("errorEmail").innerHTML="";
 			errorEmail.style.color="green";
-			
-	return true;
+				
+			//document.getElementById("otp-container").addEventListener("display","block");
+			return myFunction();
+	
 		}
+}
+function myFunction() {
+  var x = document.getElementById("otp-container");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
 }
 	
 function mobileNumber()
@@ -86,6 +92,7 @@ if(!IndNum.test(Number.value)){
 	document.getElementById("errorPhone").innerHTML="";
 	phone.classList.add("valid");
 	errorPhone.style.color="green";
+	
 	return true;
 }
 }
@@ -94,6 +101,11 @@ function passwordcheck(){
 	var pass1=document.getElementById("pass1").value();
 	var pass2=document.getElementById("pass2").value();
 }
+//$(document).ready(function(){
+//	$(".otp-input").click(function(){
+//		$("#otp-container").css('display','block');	
+//	})
+//	});
  
 //if(!IndNum.test(Number.value)){
 		
