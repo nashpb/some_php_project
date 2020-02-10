@@ -28,12 +28,11 @@
 
 					<input type="password"  name="pswd2"class="form-control" placeholder="Confirm Password" minlength="4" maxlength="10" required>
 					<input type="text" class="form-control" placeholder="address">
-					<input type="number" class="form-control" placeholder="Phone Number" maxlength="10"  id="phone" onfocusout="mobileNumber();">
-					
-				</div>
+					<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();">
+					</div>
 				<div class="otp_container">
-					<input type="email" class="form-control" placeholder="emailid" onfocusout="checkEmail();"id="emailVal" >
-					<button class="otp-input" >Get OTP</button>
+					<input type="email" class="form-control" placeholder="emailid" id="emailVal"  >
+					<button class="otp-input" onclick="checkEmail();" >Get OTP</button>
 				</div>
 				<div class="input-container" id="otp-container">
 					<input type="text" class="form-control" placeholder="OTP" >
@@ -58,7 +57,7 @@ function checkEmail() {
 		{
             alert('Please provide a valid email address');
 			
-            email.focus;
+            email.focus();
             return false;
         }
 }
@@ -69,9 +68,9 @@ function mobileNumber()
 	var IndNum =/^[6-9]\d{9}$/;
 	if(!IndNum.test(Number.value)){
 	   alert('please enter valid mobile number');
-		
-	phone.focus;
-	return false;
+	   
+		return false;
+		document.getElementById("phone").focus();
 	}
 }
 
