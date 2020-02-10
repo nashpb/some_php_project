@@ -7,12 +7,12 @@
 	<script src="script/script.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<style>
-      #emailVal:invalid {
-        border: 2px solid red;
+      .invalid {
+        border: 1px solid red;
       }
 
-      #emailVal:valid {
-        border: 2px solid green;
+      .valid {
+        border: 1px solid green;
       }
     </style>
 </head>
@@ -27,11 +27,12 @@
 					<input type="password" id="pass1" name="pswd1"class="form-control" placeholder="Password" minlength="4" maxlength="10"   required >
 
 					<input type="password"  name="pswd2"class="form-control" placeholder="Confirm Password" minlength="4" maxlength="10" required>
-					<input type="text" class="form-control" placeholder="address">
-					<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();">
+					<input type="text" class="form-control" placeholder="address">	
+				
+				<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone"></div>
 					</div>
 				<div class="otp_container">
-					<input type="email" class="form-control" placeholder="emailid" id="emailVal"  >
+					<input type="email" class="form-control" placeholder="emailid" id="emailVal"  ><div id="errorEmail"></div>
 					<button class="otp-input" onclick="checkEmail();" >Get OTP</button>
 				</div>
 				<div class="input-container" id="otp-container">
@@ -55,26 +56,41 @@ function checkEmail() {
         var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!filter.test(email.value))
 		{
-            alert('Please provide a valid email address');
-			
-            email.focus();
-            return false;
-        }
+			document.getElementById("errorEmail").innerHTML="please enter valid Email ID";
+			emailVal.classList.add("invalid");
+		  email.focus();
+			return false;
+        }else{
+			document.getElementById("errorEmail").innerHTML="";
+	emailVal.classList.add("valid");
+	return true;
+		}
 }
 	
 function mobileNumber()
 {
-	var Number = document.getElementById('phone');
+	var Number = document.getElementById("phone");
 	var IndNum =/^[6-9]\d{9}$/;
-	if(!IndNum.test(Number.value)){
-	   alert('please enter valid mobile number');
-	   
-		return false;
-		document.getElementById("phone").focus();
-	}
+if(!IndNum.test(Number.value)){
+	document.getElementById("errorPhone").innerHTML="please enter valid mobile number";
+	phone.classList.add("invalid");
+	phone.focus();
+		return false ;
+}else{
+	document.getElementById("errorPhone").innerHTML="";
+	phone.classList.add("valid");
+	return true;
+}
 }
 
+ 
+//if(!IndNum.test(Number.value)){
+		
+	//	document.getElementById("errorPhone").innerHTML="please enter valid mobile number";
 
-
-
-</script> 
+	  // phone.focus();
+		//return false;
+		
+//	}
+//}
+</script>
