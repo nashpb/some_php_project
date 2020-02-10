@@ -33,7 +33,7 @@
 					</div>
 				<div class="otp_container">
 					<input type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
-					<button class="otp-input"  onclick="checkEmail();">Get OTP</button>
+					<button type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
 				</div>
 				<div class="input-container" id="otp-container" >
 					<input type="text" class="form-control"   placeholder="OTP" >
@@ -65,17 +65,9 @@ function checkEmail() {
 			errorEmail.style.color="green";
 				
 			//document.getElementById("otp-container").addEventListener("display","block");
-			return myFunction();
-	
+			var x = document.getElementById("otp-container");
+    		x.style.display = "block";
 		}
-}
-function myFunction() {
-  var x = document.getElementById("otp-container");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
 }
 	
 function mobileNumber()
