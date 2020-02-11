@@ -6,6 +6,8 @@
 	<link rel="stylesheet" href="style/style.css">
 	<script src="script/script.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+
 	<style>
       .invalid {
         border: 1px solid red;
@@ -24,8 +26,10 @@
 				<div class="input-container">
 					<input type="text" class="form-control" placeholder="Name" required>
 					<input type="text" class="form-control" placeholder="Username" required>
-					<input type="password" id="pass1" name="pswd1"class="form-control"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required ><div id="passVal"></div>
-<input type="password" id="pass2" name="pswd2"class="form-control" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
+					<input type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
+						<div id="passVal"></div>
+<input type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
+					<input type="checkbox" id="checkBox"><span>show Password</span>
 					<input type="text" class="form-control" placeholder="address">	
 				
 				<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
@@ -45,6 +49,22 @@
 </body>
 </html>
 <script>
+
+$(document).ready(function (){
+
+	$("#checkBox").click(function (){
+  if($(this).prop("checked") == true){
+                $(".showPassword").attr("type","text");
+            }
+            else {
+                $(".showPassword").attr("type","password");
+            }
+}) 
+
+
+}) 
+ 
+ 
 
 
 function checkEmail() {
