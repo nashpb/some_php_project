@@ -28,6 +28,16 @@
 					<input type="number" class="form-control" placeholder="Mobile number">
 					<input type="date" class="form-control" placeholder="Date">
 					<input type="time" class="form-control" placeholder="Time">
+					<select name="" id="" class="form-control">
+						<option>Select Service</option>
+						<option>Hair cutting</option>
+						<option>Nail polish</option>
+					</select>
+					<select name="" id="" class="form-control">
+						<option>Service Type</option>
+						<option>Home Service</option>
+						<option>On Parlour</option>
+					</select>
 					<textarea name="" id="" rows="3" class="form-control">Address</textarea>
 					<input type="submit" value="Book" class="btn btn-sm btn-primary float-right">
 				</form>
