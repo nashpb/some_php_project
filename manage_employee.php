@@ -19,6 +19,22 @@
     <title>Document</title>
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row mt-3 mb-3">
+        <div class="col-md-4 offset-md-4">
+            <p class="text-center font-weight-bold">ADD EMPLOYEE</p>
+            <form action="" class="form-group">
+                <input type="text" class="form-control" placeholder="employee ID">
+                <input type="text" class="form-control" placeholder="Name">
+                <input type="date" class="form-control" placeholder="DOB">
+                <input type="number" class="form-control" placeholder="Mobile">
+                <input type="text" class="form-control" placeholder="Post">
+                <input type="submit" value="Add Employee" class="btn btn-sm btn-primary float-right">
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
     <p class="text-center font-weight-bold m-4">Manage Employee</p>
     <div class="container-fluid">
         <table class="table">
