@@ -25,7 +25,7 @@
 					<input type="text" class="form-control" placeholder="Name" required>
 					<input type="text" class="form-control" placeholder="Username" required>
 					<input type="password" id="pass1" name="pswd1"class="form-control"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required ><div id="passVal"></div>
-<input type="password" id="pass2" name="pswd2"class="form-control" placeholder="Confirm Password"  onkeyup="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
+<input type="password" id="pass2" name="pswd2"class="form-control" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
 					<input type="text" class="form-control" placeholder="address">	
 				
 				<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
