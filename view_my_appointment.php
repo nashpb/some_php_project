@@ -1,0 +1,123 @@
+<?php 
+	include("navbar.php");
+ ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title></title>
+</head>
+<body>
+	<div class="container-fluid mt-3">
+		<p class="text-center font-weight-bold">Ongoing Booking</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Sl.no</th>
+					<th>date</th>
+					<th>time</th>
+					<th>Service Type</th>
+					<th>Book for</th>
+					<th>Address</th>
+					<th>Mobile</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>13-02-20</td>
+					<td>01:00PM</td>
+					<td>On Parlour</td>
+					<td>Hair Cutting</td>
+					<td>Electronic City</td>
+					<td>9876543212</td>
+					<td>
+						<button class="btn btn-sm btn-warning">Waiting</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-danger">Cancel</button>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>13-02-20</td>
+					<td>03:00PM</td>
+					<td>Home</td>
+					<td>Nail Polish</td>
+					<td>Konapanna Agrahara</td>
+					<td>9876543218</td>
+					<td>
+						<button class="btn btn-sm btn-success">Approved</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-danger">Cancel</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="container-fluid mt-3">
+		<p class="text-center font-weight-bold">Completed Appointments</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Sl.no</th>
+					<th>date</th>
+					<th>time</th>
+					<th>Service Type</th>
+					<th>Book for</th>
+					<th>Address</th>
+					<th>Mobile</th>
+					<th>Status</th>
+					<th>Bill</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>13-01-20</td>
+					<td>01:00PM</td>
+					<td>On Parlour</td>
+					<td>Hair Cutting</td>
+					<td>Electronic City</td>
+					<td>9876543212</td>
+					<td>
+						<button class="btn btn-sm btn-success">Completed</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-primary">Print Bill</button>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>13-01-20</td>
+					<td>03:00PM</td>
+					<td>Home</td>
+					<td>Nail Polish</td>
+					<td>Konapanna Agrahara</td>
+					<td>9876543218</td>
+					<td>
+						<button class="btn btn-sm btn-success">Completed</button>
+					</td>
+					<td>
+						<button class="btn btn-sm btn-primary">Print Bill</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
