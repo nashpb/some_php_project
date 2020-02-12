@@ -50,9 +50,10 @@
 		<div class="row">
 			<div class="col-md-3">
 				<form action="" class="form-group">
-					<p class="text-center">Add Service</p>
+					<p class="text-center font-weight-bold">Add Service</p>
 					<input type="text" class="form-control" placeholder="Service name">
 					<input type="text" class="form-control" placeholder="Service Description">
+					<input type="number" class="form-control" placeholder="Price">
 					<div class="text-right">
 						<input type="submit" value="Add Service" class="btn btn-sm btn-primary">
 					</div>
