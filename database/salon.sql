@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `salon` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `salon`;
+CREATE DATABASE  IF NOT EXISTS `tc_salon` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `tc_salon`;
 -- MySQL dump 10.13  Distrib 8.0.19, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: salon
