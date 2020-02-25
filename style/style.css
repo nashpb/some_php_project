@@ -48,7 +48,7 @@ body
     padding: 7px 20px;
     float: right;
     margin-right: 5px;
-    background-color: #2f2f2c;
+    background-color: #2f2f2f;
     border: none;
     color: #fff;
     font-size: 13px;
@@ -61,6 +61,7 @@ body
     color: #fff;
     display: inline-block;
 }
+
 #otp-container
 {
     display: none;
