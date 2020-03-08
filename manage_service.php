@@ -1,7 +1,37 @@
 <?php
+	//IMPORT CONFIGS
 	include_once('configs/db.php');
 	include_once('configs/login_check.php'); //DEVELOPRS!!!!!!!!!!!! UNCOMMENT THIS LINE WHEN DEVELOPING
-    include('dashboard_header.php');
+	include('dashboard_header.php');
+
+	//FLASH MESSAGE SECTION
+	$flash_message['status'] = "";
+	$flash_message['message'] = "";
+	$flash_div = "";
+	if(isset($_SESSION['flash']))
+	{
+		$explode_flash = explode("!!!",$_SESSION['flash']);
+		$flash_message['status'] = $explode_flash[0];
+		$flash_message['message'] = $explode_flash[1];
+		if(!strcasecmp($flash_message['status'],'ERROR'))
+		{
+			$flash_div = '<div class="alert alert-danger alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		else if(!strcasecmp($flash_message['status'],'Success'))
+		{
+			$flash_div = '<div class="alert alert-success alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		unset($_SESSION['flash']);
+	}
+
+	//LOAD SERVICES SECTION
+	$services = [];
+	$sql_query = "select * from services";
+	$result = mysqli_query($db_conn,$sql_query);
+	if($result)
+	{
+		$services = mysqli_fetch_all($result);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,15 +77,16 @@
 }
 </style>
 <body>
+<?= $flash_div;?>
 	<div class="container-fluid">
 		<p class="text-center font-weight-bold m-4">Manager Service</p>
 		<div class="row">
 			<div class="col-md-3">
-				<form action="" class="form-group">
+				<form action="actions/service/add_service.php" class="form-group" method="POST">
 					<p class="text-center font-weight-bold">Add Service</p>
-					<input type="text" class="form-control" placeholder="Service name">
-					<input type="text" class="form-control" placeholder="Service Description">
-					<input type="number" class="form-control" placeholder="Price">
+					<input type="text" class="form-control" placeholder="Service name" name="ser_name" required>
+					<input type="text" class="form-control" placeholder="Service Description" name="ser_desc" required>
+					<input type="number" class="form-control" placeholder="Price" name="ser_price" required>
 					<div class="text-right">
 						<input type="submit" value="Add Service" class="btn btn-sm btn-primary">
 					</div>
@@ -71,18 +102,31 @@
 							<th>Pricing</th>
 							<th>Action</th>
 						</tr>
-						<tr>
-							<td>ser001</td>
-							<td>Hair Cut</td>
-							<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dolor saepe velit aspernatur est eaque nostrum magni beatae! Assumenda, sapiente!</td>
-							<td>Rs. 230</td>
-							<td>
-								<div class="btn-group btn-group-sm">
-		                          <button type="button" class="btn btn-warning edit-service">Edit</button>
-		                          <button type="button" class="btn btn-danger">Delete</button>
-		                        </div>
-							</td>
-						</tr>
+						<?php if(empty($services)):?>
+							<tr align="center">
+							<td colspan="6"> NO SERVICES ADDED </td>
+							</tr>
+						<?php else:?>
+						<?php 
+						foreach($services as $key=>$service)
+						{
+						echo ' 
+							<tr>
+								<td>'.($key+1).'</td>
+								<td>'.$service[1].'</td>
+								<td>'.$service[2].'</td>
+								<td>'.$service[3].'</td>
+								<td>
+									<div class="btn-group btn-group-sm">
+									<button type="button" class="btn btn-warning  edit-service" onclick=edit_service('.$service[0].')>Edit</button>
+									<button type="button" class="btn btn-danger"  onclick=del_service_alert('.$service[0].')>Delete</button>
+									</div>
+								</td>
+							</tr>';
+						}
+						?>
+						<?php endif; ?>	
+
 					</thead>
 				</table>
 			</div>
@@ -91,10 +135,11 @@
 <div class="edit-service-form">
 	<div class="form-container">
 		<div class="inner-container">
-			<form action="" class="form-group">
-				<input type="text" value="Hair Cut" class="form-control">
-				<input type="text" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio nobis, quidem culpa molestiae repellendus iusto aliquid, eius sint sequi eveniet." class="form-control">
-				<input type="number" value="230" class="form-control">
+			<form action="actions/service/edit_service.php" class="form-group" method="POST">
+				<input id="edit_serv_id" type="hidden" class="form-control" name="ser_id">
+				<input id="edit_serv_name" type="text" class="form-control" name="ser_name" required>
+				<input id="edit_serv_desc" type="text" class="form-control" name="ser_desc" required>
+				<input id="edit_serv_price" type="number" class="form-control" name="ser_price" required>
 				<div class="text-right btn-group">
 					<button type="submit" class="btn btn-sm btn-success">Save</button>
 					<button class="btn btn-sm btn-danger cancel-form">Cancel</button>
@@ -106,10 +151,52 @@
 </body>
 </html>
 <script>
+
+	function edit_service(id)
+	{
+		$.ajax({
+			url:"actions/service/fetch_service.php",
+			method:"POST",
+			data:{id:id},
+			dataType:"json",
+			success:function(data)
+			{
+				// console.log('lol',data[0]);	
+				$('#edit_serv_id').val(data[0]);
+				$('#edit_serv_name').val(data[1]);
+				$('#edit_serv_desc').val(data[2]);
+				$('#edit_serv_price').val(data[3]);
+				$(".edit-service-form")	.fadeIn("fast");
+			},
+			error:function()
+			{
+				alert("Something Went Wrong!");
+			}
+		})
+	}
+
+	function del_service_alert(id)
+	{
+		var choice = confirm("Are you sure you want to delete the service");
+		if(choice)
+		{
+			location.href="actions/service/remove_service.php?id="+id;
+		}
+	}
 	$(document).ready(function(){
-		$(".edit-service").click(function(){
-			$(".edit-service-form")	.fadeIn("fast");
-		});
+		var services = new Array();
+		<?php 
+		//foreach($services as $key => $val){ ?>
+		// services[<?php //echo $key ?>] = [];
+		// services[<?php //echo $key ?>]['id'] = <?php //echo $val[0]; ?>;
+		// services[<?php //echo $key ?>]['name'] = '<?php //echo $val[1]; ?>';
+		// services[<?php //echo $key ?>]['description'] = '<?php //echo $val[0]; ?>';
+		// services[<?php //echo $key ?>]['price'] = <?php //echo $val[0]; ?>;
+		<?php //} ?>
+		// console.log(services);
+		// $(".edit-service").click(function(){
+		// 	$(".edit-service-form")	.fadeIn("fast");
+		// });
 		$(".cancel-form").click(function(){
 			$(".edit-service-form")	.fadeOut("fast");
 		})

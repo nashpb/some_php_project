@@ -17,7 +17,8 @@ if(isset($_POST['login_hit']))
 		$count = $row['cntUser'];
 		
         if($count > 0){
-            $_SESSION['uname'] = $uname;
+			$_SESSION['uname'] = $uname;
+			$_SESSION['cred_check_fail'] = 'false';
             header('Location: index.php');
         }else{
 			$_SESSION['cred_check_fail'] = 'true';
