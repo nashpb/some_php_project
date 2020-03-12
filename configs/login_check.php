@@ -1,5 +1,4 @@
 <?php
-include_once('dirs.php');
 if(!isset($_SESSION['uname']))
 {
     $_SESSION['cred_check_fail'] = 'true';
