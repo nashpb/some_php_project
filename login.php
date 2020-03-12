@@ -1,6 +1,6 @@
 <?php
 include_once('configs/db.php');
-if(isset($_SESSION['uname']))
+if(isset($_SESSION['uid']))
 {
 	header('Location: index.php');
 }
@@ -10,14 +10,15 @@ if(isset($_POST['login_hit']))
 	$password = mysqli_real_escape_string($db_conn,$_POST['password']);
 	if ($uname != "" && $password != "")
 	{
-		$sql_query = "select count(*) as cntUser from admin where username='".$uname."' and password='".$password."'";
+		$sql_query = "select * from admin where username='".$uname."' and password='".$password."'";
 		$result = mysqli_query($db_conn,$sql_query);
 		$row = mysqli_fetch_array($result);
 
-		$count = $row['cntUser'];
-		
+		$count = count($row);
+
         if($count > 0){
-			$_SESSION['uname'] = $uname;
+			$_SESSION['uname'] = $row['username'];
+			$_SESSION['uid'] = $row['id'];
 			$_SESSION['cred_check_fail'] = 'false';
             header('Location: index.php');
         }else{

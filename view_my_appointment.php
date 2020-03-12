@@ -2,6 +2,30 @@
 	include_once('configs/db.php');
 	include_once('configs/login_check.php'); //DEVELOPRS!!!!!!!!!!!! UNCOMMENT THIS LINE WHEN DEVELOPING
 	include("navbar.php");
+
+	//FLASH MESSAGE SECTION
+	$flash_message['status'] = "";
+	$flash_message['message'] = "";
+	$flash_div = "";
+	if(isset($_SESSION['flash']))
+	{
+		$explode_flash = explode("!!!",$_SESSION['flash']);
+		$flash_message['status'] = $explode_flash[0];
+		$flash_message['message'] = $explode_flash[1];
+		if(!strcasecmp($flash_message['status'],'ERROR'))
+		{
+			$flash_div = '<div class="alert alert-danger alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		else if(!strcasecmp($flash_message['status'],'Success'))
+		{
+			$flash_div = '<div class="alert alert-success alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		unset($_SESSION['flash']);
+	}
+
+	//LOAD ONGOING APPOINTMENTS
+	//LOAD COMPLETED APPOINTMENTS
+	//LOAD CANCELLED APPOINTMENTS
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +45,7 @@
     <title></title>
 </head>
 <body>
+<?= $flash_div;?>
 	<div class="container-fluid mt-3">
 		<p class="text-center font-weight-bold">Ongoing Booking</p>
 		<table class="table">

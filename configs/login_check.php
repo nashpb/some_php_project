@@ -1,6 +1,6 @@
 <?php
 include_once('dirs.php');
-if(!isset($_SESSION['uname']))
+if(!isset($_SESSION['uid']))
 {
     $_SESSION['cred_check_fail'] = 'true';
     $_SESSION['login_errors'] = 'Login First';

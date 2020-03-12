@@ -2,6 +2,36 @@
 	include_once('configs/db.php');
 	include_once('configs/login_check.php'); //DEVELOPRS!!!!!!!!!!!! UNCOMMENT THIS LINE WHEN DEVELOPING
 	include("navbar.php");
+
+
+	//FLASH MESSAGE SECTION
+	$flash_message['status'] = "";
+	$flash_message['message'] = "";
+	$flash_div = "";
+	if(isset($_SESSION['flash']))
+	{
+		$explode_flash = explode("!!!",$_SESSION['flash']);
+		$flash_message['status'] = $explode_flash[0];
+		$flash_message['message'] = $explode_flash[1];
+		if(!strcasecmp($flash_message['status'],'ERROR'))
+		{
+			$flash_div = '<div class="alert alert-danger alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		else if(!strcasecmp($flash_message['status'],'Success'))
+		{
+			$flash_div = '<div class="alert alert-success alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		unset($_SESSION['flash']);
+	}
+
+	//LOAD SERVICES SECTION
+	$services = [];
+	$sql_query = "select * from services";
+	$result = mysqli_query($db_conn,$sql_query);
+	if($result)
+	{
+		$services = mysqli_fetch_all($result);
+	}
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,33 +48,79 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <title>Document</title>
+
+	<!-- Date and time picker -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js"></script>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css" />
+	  <script src="https://kit.fontawesome.com/27d67155ea.js" crossorigin="anonymous"></script>
+	  
+	<!-- Multi Select -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+  
+	<title>Document</title>
 </head>
 <body>
+<?= $flash_div;?>
 	<div class="container-fluid">
 		<div class="row mt-3 mb-3">
 			<div class="col-md-4 offset-md-4">
 				<p class="text-center font-weight-bold">BOOK APPOINTMENT</p>
-				<form action="" class="form-group">
-					<input type="text" class="form-control" placeholder="Name">
-					<input type="number" class="form-control" placeholder="Mobile number">
-					<input type="date" class="form-control" placeholder="Date">
-					<input type="time" class="form-control" placeholder="Time">
-					<select name="" id="" class="form-control">
-						<option>Select Service</option>
-						<option>Hair cutting</option>
-						<option>Nail polish</option>
+				<form action="actions/appointment/add_appointment.php" class="form-group" method="POST">
+					<select name="services[]" id="services" class="form-control selectpicker" multiple title="Select Services" data-live-search="true" required>
+					<?php
+					foreach($services as $key=>$service)
+					{
+						echo " <option value=".$service[0].">".$service[1]."</option>";
+					}
+					?>
+
 					</select>
-					<select name="" id="" class="form-control">
-						<option>Service Type</option>
-						<option>Home Service</option>
-						<option>On Parlour</option>
+					<br>
+					<br>
+					<select name="service_type" id="service_type" class="form-control selectpicker" title="Select Service Type" required>
+						<option value="0">Home Service</option>
+						<option value="1">On Parlour</option>
 					</select>
-					<textarea name="" id="" rows="3" class="form-control">Address</textarea>
-					<input type="submit" value="Book" class="btn btn-sm btn-primary float-right">
+					<br>
+					<br>
+
+					<div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                    <input name="appointment_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4" required/>
+                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+					</div>
+					<br>
+					<div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                    <input name="appointment_time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" required/>
+                    <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-clock"></i></div>
+                    </div>
+                	</div>
+	
+					<br>
+					<input type="submit" value="Book" class="form-control btn btn-primary">
 				</form>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker3').datetimepicker({
+					format: 'LT',
+					disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: moment().format('h') ,m:moment().format('m')})], [moment({ h: 22 }), moment({ h: 24 } )]]
+                });
+            });
+		</script>
+	  <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+					format: 'YYYY-MM-DD',
+					minDate:moment().format('L')
+                });
+            });
+        </script>
 </body>
 </html>
