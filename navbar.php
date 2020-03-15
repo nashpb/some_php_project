@@ -11,9 +11,9 @@
         <span>Empower Salon</span>
         <ul class="nav-links">
             <li><a href="">Home</a></li>
-            <li><a href="">Service</a></li>
-            <li><a href="">Link 3</a></li>
-            <li><a href="">Link 4</a></li>
+            <li><a href="customer-booking.php">Book</a></li>
+            <li><a href="customer-profile.php">Profile</a></li>
+            <li><a href="">Logout</a></li>
         </ul>
     </div>
 </body>

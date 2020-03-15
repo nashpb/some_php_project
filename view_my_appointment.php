@@ -50,7 +50,10 @@
 						<button class="btn btn-sm btn-warning">Waiting</button>
 					</td>
 					<td>
-						<button class="btn btn-sm btn-danger">Cancel</button>
+						<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+						  <button class="btn btn-sm btn-danger">Cancel</button>
+						  <button class="btn btn-secondary">Edit</button>
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -65,7 +68,10 @@
 						<button class="btn btn-sm btn-success">Approved</button>
 					</td>
 					<td>
-						<button class="btn btn-sm btn-danger">Cancel</button>
+						<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+						  <button class="btn btn-sm btn-danger">Cancel</button>
+						  <button class="btn btn-secondary">Edit</button>
+						</div>
 					</td>
 				</tr>
 			</tbody>
