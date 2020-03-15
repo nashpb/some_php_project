@@ -10,8 +10,9 @@
     <div class="navbar">
         <span>Empower Salon</span>
         <ul class="nav-links">
-            <li><a href="">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="customer-booking.php">Book</a></li>
+            <li><a href="view_my_appointment.php">View Appointments</a></li>
             <li><a href="customer-profile.php">Profile</a></li>
             <li><a href="">Logout</a></li>
         </ul>

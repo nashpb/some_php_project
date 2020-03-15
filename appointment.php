@@ -26,9 +26,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>C.ID</th>
+                    <th>Sl.no</th>
                     <th>Name</th>
-                    <th>age</th>
                     <th>Mobile</th>
                     <th>Address</th>
                     <th>D&T</th>
@@ -40,9 +39,14 @@
                 <tr>
                     <td>emp001</td>
                     <td>Sumit</td>
-                    <td>10-01-1997</td>
                     <td>9876543210</td>
-                    <td>E-city</td>
+                    <td>E-cityks;askx
+                        dxksaokdxpd
+                        dknsalkdnlkansdklxn
+                        skdnlksndxlka
+                        lkandxljasnxlj
+                        dnalksndx
+                    </td>
                     <td>10-02-2020 | 12:00PM</td>
                     <td>Hair Cut</td>
                     <td>
@@ -55,7 +59,6 @@
                 <tr>
                     <td>emp002</td>
                     <td>Kritti</td>
-                    <td>10-01-1996</td>
                     <td>9876543232</td>
                     <td>Konapanna Agrahara</td>
                     <td>10-02-2020 | 1:00PM</td>
@@ -75,9 +78,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>C.ID</th>
+                    <th>Sl.no</th>
                     <th>Name</th>
-                    <th>age</th>
                     <th>Mobile</th>
                     <th>Address</th>
                     <th>D&T</th>
@@ -91,7 +93,6 @@
                 <tr>
                     <td>emp001</td>
                     <td>Sumit</td>
-                    <td>10-01-1997</td>
                     <td>9876543210</td>
                     <td>E-city</td>
                     <td>10-02-2020 | 12:00PM</td>
@@ -112,9 +113,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>C.ID</th>
+                    <th>Sl.no</th>
                     <th>Name</th>
-                    <th>age</th>
                     <th>Mobile</th>
                     <th>Address</th>
                     <th>D&T</th>
@@ -128,7 +128,6 @@
                 <tr>
                     <td>emp002</td>
                     <td>Kritti</td>
-                    <td>10-01-1996</td>
                     <td>9876543232</td>
                     <td>Konapanna Agrahara</td>
                     <td>09-02-2020 | 1:00PM</td>
@@ -144,5 +143,10 @@
             </tbody>
         </table>
     </div>
+    <style>
+    .table{
+        table-layout:fixed;
+    }
+    </style>
 </body>
 </html>
