@@ -32,59 +32,31 @@
 
 			?>
 			<p class="form-title">Registration</p>
-<<<<<<< Updated upstream
-			<form formname="myForm"  >
+			<form formname="regForm"  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
 				<div class="input-container">
-					<input type="text" class="form-control" placeholder="Name" required>
-					<input type="text" class="form-control" placeholder="Username" required>
-					<input type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
-						<div id="passVal"></div>
-<input type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
-					<input type="checkbox" id="checkBox"><span>show Password</span>
-					<input type="text" class="form-control" placeholder="address">	
-				
-				<input type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
+					<input autocomplete="off" type="text" class="form-control" placeholder="Name" required>
+					<input autocomplete="off" type="text" class="form-control" placeholder="Username" required>
+					<input autocomplete="off" type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
+					<div id="passVal"></div>
+					<input autocomplete="off" type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
+					<label  class="form-control"> Show Password<input autocomplete="off" type="checkbox" id="checkBox" class="form-control" ></label>
+					<input autocomplete="off" type="text" class="form-control" placeholder="address">	
+				<input autocomplete="off" type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
 					</div>
 				<div class="otp_container">
-					<input type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
-					<button type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
+					<input autocomplete="off" type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
+					<button autocomplete="off" type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
 				</div>
 				<div class="input-container" id="otp-container" >
-					<input type="text" class="form-control"   placeholder="OTP" >
-=======
-			<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-				<div class="input-container">
-					<input type="text" class="form-control" placeholder="Name" name="name">
-					<span class="nameErr">* <?php echo $_GET["nameErr"]?></span><br>
-					<input type="text" class="form-control" placeholder="Email" name="email">
-					<span class="emailErr">* <?php echo $_GET["emailErr"];?></span><br>
-					<input type="text" class="form-control" placeholder="Password" name="password">
-					<span class="passwordErr">* <?php echo $_GET["passwordErr"];?></span><br>
-					<!-- <input type="text" class="form-control" placeholder="address" name="address"> -->
-					Gender : 
-					<input type="radio" name="gender" value="female">Female
-					<input type="radio" name="gender" value="male">Male 
-					<input type="radio" name="gender" value="other">Other
-					<span class="error">* <?php echo "$genderErr";?></span><br>
-				</div>
-				<div class="otp_container">
-					<input type="text" class="form-control" placeholder="Phone Number" name="phoneno">
-					<span class="error">* <?php echo "$phonenoErr";?></span><br>
-					<p class="otp-input">Get OTP</p>
-				</div>
-				<div class="input-container" id="otp-container">
-					<input type="text" class="form-control" placeholder="OTP"><br>
->>>>>>> Stashed changes
+					<input autocomplete="off" type="text" class="form-control"   placeholder="OTP" >		
 				</div>
 				<hr>
-				<input type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
+				<input autocomplete="off" type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
 			</form>
-		</div>
-	</div>
+			</div>
 </body>
 </html>
 <script>
-<<<<<<< Updated upstream
 
 $(document).ready(function (){
 
@@ -187,13 +159,12 @@ $("#passVal").html("Kindly check with atleast one lower and upper case letter on
 		
 //	}
 //}
-</script>
-=======
-$(document).ready(function(){
-	$(".otp-input").click(function(){
-		$("#otp-container").css('display','block');
-	})
-});
+
+// $(document).ready(function(){
+// 	$(".otp-input").click(function(){
+// 		$("#otp-container").css('display','block');
+// 	})
+// });
 </script>
 
 
@@ -339,4 +310,3 @@ $(document).ready(function(){
 	}
 
 ?>
->>>>>>> Stashed changes
