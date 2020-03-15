@@ -81,7 +81,7 @@
 					<br>
 					<select name="service_type" id="service_type" class="form-control selectpicker" title="Select Service Type" required>
 						<option value="0">Home Service</option>
-						<option value="1">On Parlour</option>
+						<option value="1">Parlour</option>
 					</select>
 					<br>
 					<br>
