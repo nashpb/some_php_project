@@ -41,6 +41,10 @@
     background-color: #ddd;
     transition: .5s;
 }
+.dashoard-service p
+{
+    margin: 0px;
+}
 </style>
 <body>
     <div class="navbar">
@@ -53,31 +57,26 @@
         <a href="">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Employees</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum inventore recusandae optio expedita eos debitis, odio autem voluptatum ex mollitia!</p>
             </div>
         </a>
         <a href="">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Customers</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum inventore recusandae optio expedita eos debitis, odio autem voluptatum ex mollitia!</p>
             </div>
         </a>
         <a href="">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Appoinments</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum inventore recusandae optio expedita eos debitis, odio autem voluptatum ex mollitia!</p>
             </div>
         </a>
         <a href="">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Services</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum inventore recusandae optio expedita eos debitis, odio autem voluptatum ex mollitia!</p>
             </div>
         </a>
         <a href="">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Payments</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum inventore recusandae optio expedita eos debitis, odio autem voluptatum ex mollitia!</p>
             </div>
         </a>
         
