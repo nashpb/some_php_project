@@ -50,11 +50,6 @@
 {
     width: 100%;
 }
-.person-img:hover
-{
-
-}
-
 .title
 {
     font-size: 30px;

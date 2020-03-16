@@ -1,5 +1,25 @@
 <?php
 	include_once('configs/db.php');
+
+	//FLASH MESSAGE SECTION
+	$flash_message['status'] = "";
+	$flash_message['message'] = "";
+	$flash_div = "";
+	if(isset($_SESSION['flash']))
+	{
+		$explode_flash = explode("!!!",$_SESSION['flash']);
+		$flash_message['status'] = $explode_flash[0];
+		$flash_message['message'] = $explode_flash[1];
+		if(!strcasecmp($flash_message['status'],'ERROR'))
+		{
+			$flash_div = '<div class="alert alert-danger alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		else if(!strcasecmp($flash_message['status'],'Success'))
+		{
+			$flash_div = '<div class="alert alert-success alert-dismissible" role="alert"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.$flash_message['message'].'</div>';
+		}
+		unset($_SESSION['flash']);
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +42,7 @@
     </style>
 </head>
 <body class="back-img">
+<?= $flash_div;?>
 	<div class="container-fluid display-flex-center login">
 		<div class="login-div">
 			<?php
@@ -32,26 +53,26 @@
 
 			?>
 			<p class="form-title">Registration</p>
-			<form formname="regForm"  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" autocomplete="off">
+			<form formname="regForm"  method="post" action="actions/registration/add_customer.php" autocomplete="off">
 				<div class="input-container">
-					<input autocomplete="off" type="text" class="form-control" placeholder="Name" required>
-					<input autocomplete="off" type="text" class="form-control" placeholder="Username" required>
-					<input autocomplete="off" type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
+					<input name="Name" autocomplete="off" type="text" class="form-control" placeholder="Name" required>
+					<input name="Username" autocomplete="off" type="text" class="form-control" placeholder="Username" required>
+					<input name="Password" autocomplete="off" type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
 					<div id="passVal"></div>
 					<input autocomplete="off" type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
-					<label  class="form-control"> Show Password<input autocomplete="off" type="checkbox" id="checkBox" class="form-control" ></label>
-					<input autocomplete="off" type="text" class="form-control" placeholder="address">	
-				<input autocomplete="off" type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
+					<label  class="form-control"> Show Password<input type="checkbox" id="checkBox" class="form-control" ></label>
+					<input name="Address" autocomplete="off" type="text" class="form-control" placeholder="address">	
+				<input name="Phone" autocomplete="off" type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
 					</div>
 				<div class="otp_container">
-					<input autocomplete="off" type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
-					<button autocomplete="off" type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
+					<input name="Email" autocomplete="off" type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
+					<button type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
 				</div>
 				<div class="input-container" id="otp-container" >
 					<input autocomplete="off" type="text" class="form-control"   placeholder="OTP" >		
 				</div>
 				<hr>
-				<input autocomplete="off" type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
+				<input type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
 			</form>
 			</div>
 </body>
@@ -166,147 +187,3 @@ $("#passVal").html("Kindly check with atleast one lower and upper case letter on
 // 	})
 // });
 </script>
-
-
-<?php 
-
-	$name = $email = $password = $gender = $phoneno="";
-	$nameErr = $emailErr = $passwordErr = $genderErr = $phonenoErr = "";
-	$flag = 0;
-	
-	$playerurl = "registration.php" ;
-	$testvar = "TESTING NIGGA"; 
-
-
-
-	if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-		// echo "Your registration form is being processed.. please wait.";
-		// echo "Getting the data !";
-		if(empty($_POST["name"])){
-			$nameErr = "Name is required ! ";
-			// echo "$nameErr";
-			header( "Location: $playerurl?nameErr=$nameErr" );
-			$flag++;
-		}
-		else{
-			$name = test_input($_POST["name"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$name)){
- 				$nameErr = "Only letters and white space allowed";
- 				// echo "$nameErr";
-				header( "Location: $playerurl?nameErr=$nameErr" );
- 				$flag++;
-			}
-		}
-		
-		if(empty($_POST["email"])){
-			$emailErr = "Email is required ! ";
-			// echo $emailErr;
-			header( "Location: $playerurl?emailErr=$emailErr" );
-			$flag++;
-		}
-		else{
-			$email = test_input($_POST["email"]);
-			if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-				$emailErr = "Invalid email format";
-				// echo $emailErr;
-				header( "Location: $playerurl?emailErr=$emailErr" );
-				$flag++;
-			}
-
-		}
-		
-		if(empty($_POST["password"])){
-			$passwordErr = "Password is required ! ";
-			// echo $passwordErr;
-			header( "Location: $playerurl?passwordErr=$passwordErr" );
-			$flag++;
-		}
-		else
-			$password = test_input($_POST["password"]);
-		
-		if(empty($_POST["gender"])){
-			$genderErr = "Gender is required ! ";
-			// echo $genderErr;
-			header( "Location: $playerurl?genderErr=$genderErr" );
-			$flag++;
-		}
-		else
-			$gender = test_input($_POST["gender"]);
-		
-		if(empty($_POST["phoneno"])){
-			$phonenoErr = "Phone Number is required ! ";
-			// echo $phonenoErr;
-			header( "Location: $playerurl?phonenoErr=$phonenoErr" );
-			$flag++;
-		}
-		else{
-			$phoneno = test_input($_POST["phoneno"]);
-			if(!preg_match("/^[0-9]{10}$/",$phoneno)) {
-				$phonenoErr = "Invalid phone number ! ";
-				// echo $phonenoErr;
-				header( "Location: $playerurl?phonenoErr=$phonenoErr" );
-				$flag++;
-			}	
-		}
-
-		//echo $name. "," .$username. "," .$password. "," .$address;
-		// echo "$name, $email, $password, $gender, $phoneno";
-
-		// echo "<br> outside the method : $name, $email, $password, $gender, $phoneno<br>";
-		
-		if($flag == 0)
-			connect($name, $password, $email, $gender, $phoneno);
-		else
-			echo "<h1>Flag</h1>";
-
-	}
-	else
-		echo "<h1>condition failed !!</h1>";
-
-	
-
-
-	function test_input($data){
-		$data = trim($data);
-		$data = stripslashes($data);
-		$data = htmlspecialchars($data);
-		return $data;
-	}
-
-	function connect($name, $password, $email, $gender, $phoneno){
-
-		// echo "<br> inside connect() : $name, $email, $password, $gender, $phoneno<br>";
-
-		$servername = "localhost";
-		$db_username = "admin";
-		$db_password = "pass";
-		$db_name = "salon";
-
-		// creating connection
-		$conn = new mysqli($servername, $db_username, $db_password, $db_name);
-
-		// checking connection
-		if ($conn -> connect_error){
-			// echo "connection failed";
-			die("Connection failed : ".$conn->connect_error);
-		}
-		// echo "Connected successfully \n";
-
-		// echo "<br> name : $name, password : $password";
-
-		$sql = "insert into customers (name, password, email, phone_no, gender, verified) values(\"$name\", \"$password\", \"$email\", \"$phoneno\", \"$gender\", \"n\")";
-		//$sql = "insert into customers (name, password) values($name, $password)";
-		
-		if ($conn->query($sql) === TRUE) {
-		    
-		    echo "<h1>New Record created !</h1>";
-		    
-		} else {
-		    echo "<h1>error</h1>";
-		}
-
-		$conn->close();
-	}
-
-?>
