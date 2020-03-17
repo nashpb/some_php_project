@@ -1,6 +1,6 @@
 <?php
 session_start();
-$db_conn = new mysqli("localhost", "root", "", "tc_salon");
+$db_conn = new mysqli("localhost", "root", "root", "salon");
 if ($db_conn->connect_error) {
     die("ERROR: Unable to connect: " . $db_conn->connect_error);
   } 
