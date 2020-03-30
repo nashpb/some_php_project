@@ -184,19 +184,6 @@
 		}
 	}
 	$(document).ready(function(){
-		var services = new Array();
-		<?php 
-		//foreach($services as $key => $val){ ?>
-		// services[<?php //echo $key ?>] = [];
-		// services[<?php //echo $key ?>]['id'] = <?php //echo $val[0]; ?>;
-		// services[<?php //echo $key ?>]['name'] = '<?php //echo $val[1]; ?>';
-		// services[<?php //echo $key ?>]['description'] = '<?php //echo $val[0]; ?>';
-		// services[<?php //echo $key ?>]['price'] = <?php //echo $val[0]; ?>;
-		<?php //} ?>
-		// console.log(services);
-		// $(".edit-service").click(function(){
-		// 	$(".edit-service-form")	.fadeIn("fast");
-		// });
 		$(".cancel-form").click(function(){
 			$(".edit-service-form")	.fadeOut("fast");
 		})

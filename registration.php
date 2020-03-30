@@ -53,24 +53,24 @@
 
 			?>
 			<p class="form-title">Registration</p>
-			<form formname="regForm"  method="post" action="actions/registration/add_customer.php" autocomplete="off">
+			<form id="regForm"  method="post" action="actions/registration/add_customer.php" autocomplete="off">
 				<div class="input-container">
-					<input name="Name" autocomplete="off" type="text" class="form-control" placeholder="Name" required>
-					<input name="Username" autocomplete="off" type="text" class="form-control" placeholder="Username" required>
-					<input name="Password" autocomplete="off" type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Password" minlength="4" maxlength="12"   required >
+					<input name="Name" autocomplete="off" type="text" class="form-control" placeholder="Please Enter Name" required>
+					<input name="Username" autocomplete="off" type="text" class="form-control" placeholder="Please Enter Username" required>
+					<input name="Password" autocomplete="off" type="password" id="pass1" name="pswd1"  class="form-control showPassword"onfocusout="passwordValidate();" placeholder="Please Enter Password" minlength="4" maxlength="12"   required >
 					<div id="passVal"></div>
-					<input autocomplete="off" type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Confirm Password"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
+					<input autocomplete="off" type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Please Enter Password Again"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
 					<label  class="form-control"> Show Password<input type="checkbox" id="checkBox" class="form-control" ></label>
-					<input name="Address" autocomplete="off" type="text" class="form-control" placeholder="address">	
-				<input name="Phone" autocomplete="off" type="number" class="form-control" placeholder="Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
+					<input name="Address" autocomplete="off" type="text" class="form-control" placeholder="Please Enter address">	
+				<input name="Phone" autocomplete="off" type="number" class="form-control" placeholder="Please Enter Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
 					</div>
 				<div class="otp_container">
-					<input name="Email" autocomplete="off" type="email" class="form-control" placeholder="emailid" id="emailVal"     ><div id="errorEmail"  ></div>
-					<button type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button>
+					<input name="Email" autocomplete="off" type="email" class="form-control" placeholder="Please Enter Email-ID" id="emailVal"><div id="errorEmail"  ></div>
+					<!-- <button type="button" class="otp-input"  onclick="checkEmail();">Get OTP</button> -->
 				</div>
-				<div class="input-container" id="otp-container" >
+				<!-- <div class="input-container" id="otp-container" >
 					<input autocomplete="off" type="text" class="form-control"   placeholder="OTP" >		
-				</div>
+				</div> -->
 				<hr>
 				<input type="submit" value="SUBMIT" class="form-submit" id="okButton"  >
 			</form>
@@ -113,8 +113,8 @@ function checkEmail() {
 			errorEmail.style.color="green";
 				
 			//$("#otp-container").css('display','block');
-			var x = document.getElementById("otp-container");
-    		x.style.display = "block";
+			// var x = document.getElementById("otp-container");
+    		// x.style.display = "block";
 		}
 }
 	

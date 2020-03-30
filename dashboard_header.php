@@ -11,11 +11,13 @@
     <div class="navbar">
         <span>Empower Salon</span>
         <ul class="nav-links">
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Emplpoyee</a></li>
-            <li><a href="">Customer</a></li>
-            <li><a href="">Appoinments</a></li>
-            <li><a href="">Service</a></li>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="manage_employee.php">Employees</a></li>
+            <li><a href="manage_customer.php">Customers</a></li>
+            <li><a href="manage_appointment">Appoinments</a></li>
+            <li><a href="manage_service.php">Services</a></li>
+            <li><a href="manage_payment.php">Payments</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
 </body>

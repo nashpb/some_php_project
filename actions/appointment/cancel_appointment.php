@@ -12,13 +12,14 @@ if(empty($_REQUEST['id']))
 $appointment_id = $_REQUEST['id'];
 
 $sql_query = "UPDATE `appointments` SET `appointment_status`='3' WHERE id = ".$appointment_id;
-$_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not delete service";
+$_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not cancel appointment";
 if(mysqli_query($db_conn,$sql_query))
 {
-    $_SESSION['flash'] = 'Success!!! Service deleted';
+    $_SESSION['flash'] = 'Success!!! Appointment Cancelled';
 }
 
-header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+
+header('Location:'.$_SERVER["HTTP_REFERER"]);
 
 exit;
 
