@@ -79,8 +79,8 @@
 			<thead>
 				<tr>
 					<th>Sl.no</th>
-					<th>date</th>
-					<th>time</th>
+					<th>Date</th>
+					<th>Time</th>
 					<th>Service Type</th>
 					<th>Services</th>
 					<th>Assigned beautician</th>
@@ -107,8 +107,16 @@
 							}
 							else
 							{
-								$emp_number = "Number";
+                                $sql_query = 'SELECT * FROM employees where id='.$on_appointment[6];
+                                $result = mysqli_query($db_conn,$sql_query);
+                                if($result)
+                                {
+                                    $employee = mysqli_fetch_all($result);
+                                }   
+								$on_appointment[6] = $employee[0][1];  
+								$emp_number = $employee[0][2];
 							}
+						
 							$sql_query = "SELECT `service_id` FROM `appointment_services_junc` WHERE `appointment_id` = ".$on_appointment[0];
 							$result = mysqli_query($db_conn,$sql_query);
 							if($result)
@@ -145,7 +153,7 @@
 										.$optinons.
 									'</td>
 									<td>'.$on_appointment[6].'</td>
-									<td>'.$on_appointment[6].'</td>
+									<td>'.$emp_number.'</td>
 									<td>
 										<button class="btn btn-sm btn-'.$color[$on_appointment[5]].'">'.$status[$on_appointment[5]].'</button>
 									</td>
@@ -167,8 +175,8 @@
 			<thead>
 				<tr>
 					<th>Sl.no</th>
-					<th>date</th>
-					<th>time</th>
+					<th>Date</th>
+					<th>Time</th>
 					<th>Service Type</th>
 					<th>Services</th>
 					<th>Status</th>
@@ -221,10 +229,22 @@
 									'</td>
 									<td>
 										<button class="btn btn-sm btn-'.$color[$comp_appointment[5]].'">'.$status[$comp_appointment[5]].'</button>
-									</td>
-									<td>
+									</td>';
+							if($comp_appointment[5] == 2)
+							{
+								echo 
+									'<td>
 										<button class="btn btn-sm btn-primary" onclick=print_bill_alert('.$comp_appointment[0].')>Print Bill</button>
-									</td>
+									</td>';
+							}
+							else
+							{
+								echo 
+									'<td>
+										<p>NIL</p>
+									</td>';
+							}
+							echo '
 								</tr>';
 						}
 						?>

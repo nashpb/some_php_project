@@ -54,31 +54,31 @@ include_once('configs/login_check.php'); //DEVELOPRS!!!!!!!!!!!! UNCOMMENT THIS 
     <div class="navbar">
         <span>Empower Salon</span>
         <ul class="nav-links">
-            <li><a href="">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
     <div class="ccontainer-fluid all-dash-item">
-        <a href="">
+        <a href="manage_employee.php">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Employees</p>
             </div>
         </a>
-        <a href="">
+        <a href="manage_customer.php">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Customers</p>
             </div>
         </a>
-        <a href="">
+        <a href="manage_appointment.php">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Appoinments</p>
             </div>
         </a>
-        <a href="">
+        <a href="manage_service.php">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Services</p>
             </div>
         </a>
-        <a href="">
+        <a href="manage_payment.php">
             <div class="dashoard-service">
                 <p class="font-weight-bold">Manage Payments</p>
             </div>

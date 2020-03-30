@@ -10,11 +10,20 @@
     <div class="navbar">
         <span>Empower Salon</span>
         <ul class="nav-links">
+        <?php
+        if(isset($_SESSION['uid'])):
+        ?>
             <li><a href="index.php">Home</a></li>
             <li><a href="customer-booking.php">Book</a></li>
             <li><a href="view_my_appointment.php">View Appointments</a></li>
             <li><a href="customer-profile.php">Profile</a></li>
-            <li><a href="">Logout</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        <?php
+        else :
+        ?>
+        <li><a href="registration.php">SignUp</a></li>
+        <li><a href="login.php">Login</a></li>
+        <?php endif; ?>	
         </ul>
     </div>
 </body>
