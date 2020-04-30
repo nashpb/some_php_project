@@ -2,8 +2,8 @@
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Mar 30, 2020 at 08:49 AM
+-- Host: localhost
+-- Generation Time: Apr 30, 2020 at 04:49 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `tc_salon`
 --
+CREATE DATABASE IF NOT EXISTS `tc_salon` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `tc_salon`;
 
 -- --------------------------------------------------------
 
@@ -62,16 +64,14 @@ CREATE TABLE IF NOT EXISTS `appointments` (
   `emp_id` int(11) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointments`
 --
 
 INSERT INTO `appointments` (`id`, `cust_id`, `appointment_date`, `appointment_time`, `appointment_service_type`, `appointment_status`, `emp_id`, `created`) VALUES
-(1, 1, '2020-03-10', '1:54 AM', '0', '3', NULL, '2020-03-09 20:25:56'),
-(2, 1, '2020-03-16', '2:56 AM', '1', '2', NULL, '2020-03-15 21:26:04'),
-(3, 1, '2020-03-30', '3:12 AM', '0', '1', 1, '2020-03-29 21:42:55');
+(9, 5, '2020-04-29', '10:30 AM', '1', '3', NULL, '2020-04-30 04:31:26');
 
 -- --------------------------------------------------------
 
@@ -85,27 +85,20 @@ CREATE TABLE IF NOT EXISTS `appointment_services_junc` (
   `appointment_id` int(11) NOT NULL,
   `service_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `appointment_services_junc`
 --
 
 INSERT INTO `appointment_services_junc` (`id`, `appointment_id`, `service_id`) VALUES
-(1, 1, 4),
-(2, 1, 5),
-(3, 1, 6),
-(4, 1, 8),
-(5, 1, 10),
-(6, 2, 8),
-(7, 2, 9),
-(8, 2, 10),
-(9, 2, 11),
-(10, 2, 12),
-(11, 3, 4),
-(12, 3, 6),
-(13, 3, 8),
-(14, 3, 10);
+(15, 4, 4),
+(16, 4, 8),
+(17, 5, 5),
+(18, 5, 8),
+(19, 6, 6),
+(20, 9, 4),
+(21, 9, 6);
 
 -- --------------------------------------------------------
 
@@ -118,17 +111,20 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `gender` varchar(250) NOT NULL,
   `phone_no` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `phone_no_UNIQUE` (`phone_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
 --
 
+INSERT INTO `customers` (`id`, `name`, `email`, `gender`, `phone_no`, `address`) VALUES
+(5, 'Nishadh', 'nashpb@gmail.com', 'Male', '9711123789', 'nashpb@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -142,20 +138,10 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `name` varchar(255) NOT NULL,
   `phone_no` varchar(10) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `salon_id` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone_no_UNIQUE` (`phone_no`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  UNIQUE KEY `password_UNIQUE` (`password`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `employees`
---
-
-INSERT INTO `employees` (`id`, `name`, `phone_no`, `email`, `password`, `salon_id`) VALUES
-(1, 'NASH', '9741145987', 'n@n.non', 'lol', NULL);
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -248,14 +234,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_name` (`user_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `user_name`, `password`, `user_type`, `user_info_id`, `verified`, `otp`, `created_at`) VALUES
-(1, 'admin', 'ad', 'A', 1, '0', NULL, '2020-03-29 19:39:47');
+(7, 'n-1', 'Msdmmshkr@1', 'C', 5, '0', NULL, '2020-04-30 04:27:08'),
+(8, 'admin', 'admin', 'A', 0, '0', NULL, '2020-04-30 04:43:24');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

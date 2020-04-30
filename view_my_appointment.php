@@ -23,6 +23,25 @@
 		unset($_SESSION['flash']);
 	}
 
+	//EXPIRE APPOINTMENTS
+	$exp_appointments = [];
+	$sql_query = 'SELECT * FROM `appointments` WHERE (`appointment_status` = "0" OR `appointment_status` = "1")';
+	$result = mysqli_query($db_conn,$sql_query);
+	if($result)
+	{
+		$exp_appointments = mysqli_fetch_all($result);
+		$today = date("Y-m-d");
+		foreach($exp_appointments as $exp_appointment)
+		{
+			if($exp_appointment[2] < $today)
+			{
+				$sql_query = 'UPDATE `appointments` SET `appointment_status`="3" WHERE `id`='.$exp_appointment[0];
+				mysqli_query($db_conn,$sql_query);
+			}
+		}
+	}
+
+
 	//LOAD ONGOING APPOINTMENTS
 	$on_appointments = [];
 	$sql_query = 'SELECT * FROM `appointments` WHERE (`appointment_status` = "0" OR `appointment_status` = "1") AND `cust_id` = '.$_SESSION['uid'];

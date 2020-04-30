@@ -15,8 +15,9 @@ $cust_password =  mysqli_real_escape_string($db_conn,$_POST['Password']);
 $cust_address =  mysqli_real_escape_string($db_conn,$_POST['Address']);
 $cust_phone =  mysqli_real_escape_string($db_conn,$_POST['Phone']);
 $cust_email =  mysqli_real_escape_string($db_conn,$_POST['Email']);
+$cust_gender =  mysqli_real_escape_string($db_conn,$_POST['Gender']);
 
-$sql_query = "INSERT INTO `customers`(`name`, `email`, `phone_no`, `address`) VALUES ('".$cust_name."','".$cust_email."','".$cust_phone."','".$cust_address."')";
+$sql_query = "INSERT INTO `customers`(`name`, `email`, `gender`, `phone_no`, `address`) VALUES ('".$cust_name."','".$cust_email."','".$cust_gender."','".$cust_phone."','".$cust_address."')";
 $_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not add you.";
 
 if(mysqli_query($db_conn,$sql_query))

@@ -62,6 +62,11 @@
 					<input autocomplete="off" type="password" id="pass2" name="pswd2"class="form-control showPassword" placeholder="Please Enter Password Again"  onfocusout="passwordCheck();"minlength="4" maxlength="12" required><div id="errorPass"></div>
 					<label  class="form-control"> Show Password<input type="checkbox" id="checkBox" class="form-control" ></label>
 					<input name="Address" autocomplete="off" type="text" class="form-control" placeholder="Please Enter address">	
+					<select name="Gender" class="form-control" required>
+					<option disabled selected value>Select A Gender</option>
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					</select>
 				<input name="Phone" autocomplete="off" type="number" class="form-control" placeholder="Please Enter Phone Number"   id="phone" required onfocusout="mobileNumber();"><div id="errorPhone" ></div>
 					</div>
 				<div class="otp_container">
