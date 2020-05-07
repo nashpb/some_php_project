@@ -19,6 +19,13 @@ if(mysqli_query($db_conn,$sql_query))
 {
     $_SESSION['flash'] = 'Success!!! Added service '.$service_name.'.';
 }
+else
+{
+    $error_msg = mysqli_error($db_conn);
+    if (strpos($error_msg, 'Duplicate entry') !== false) {
+        $_SESSION['flash']  = "ERROR!!! Something Went wrong! Service exists. Please try another one.";
+    }
+}
 
 header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/manage_service.php');
 

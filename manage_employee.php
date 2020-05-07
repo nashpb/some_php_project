@@ -55,12 +55,12 @@
     <div class="row mt-3 mb-3">
         <div class="col-md-4 offset-md-4">
             <p class="text-center font-weight-bold">ADD EMPLOYEE</p>
-            <form action="actions/employee/add_employee.php" class="form-group" method="POST">
-                <input name="Name" type="text" class="form-control" placeholder="Name">
-                <input name="Email" type="email" class="form-control" placeholder="Email">
-                <input name="Phone" type="number" class="form-control" placeholder="Mobile">
-                <input name="Username" type="text" class="form-control" placeholder="Username">
-                <input name="Password" type="password" class="form-control" placeholder="Password">
+            <form action="actions/employee/add_employee.php" class="form-group" method="POST" onSubmit="validation()">
+                <input name="Name" type="text" class="form-control" placeholder="Name" required>
+                <input name="Phone" id="phone" type="number" class="form-control" placeholder="Mobile" onfocusout="mobileNumber();" required><div id="errorPhone" ></div>
+                <input name="Email" id="emailVal" type="email" class="form-control" placeholder="Email" onfocusout="checkEmail();" required><div id="errorEmail" ></div>
+                <input name="Username" type="text" class="form-control" placeholder="Username" required>
+                <input name="Password" type="password" class="form-control" placeholder="Password" required>
                 <input type="submit" value="Add Employee" class="btn btn-sm btn-primary float-right">
             </form>
         </div>
@@ -115,6 +115,48 @@
         </table>   
     </div>
     <script>
+    function mobileNumber()
+    {
+        var Number = document.getElementById("phone");
+        var IndNum =/^[6-9]\d{9}$/;
+        if(!IndNum.test(Number.value)){
+            document.getElementById("errorPhone").innerHTML="please enter valid mobile number";
+            phone.classList.add("invalid");
+            errorPhone.style.color="red";
+            phone.focus();
+                return false ;
+        }else{
+            document.getElementById("errorPhone").innerHTML="";
+            phone.classList.add("valid");
+            errorPhone.style.color="green";
+            
+            return true;
+        }
+    }
+    function checkEmail() {
+        var email = document.getElementById("emailVal");
+        var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         
+		if (!filter.test(email.value))
+		{
+			emailVal.classList.add("invalid");
+			document.getElementById("errorEmail").innerHTML="please enter valid Email ID";
+			errorEmail.style.color="red";
+		  email.focus();
+			return false;
+        }else{
+			emailVal.classList.add("valid");
+			document.getElementById("errorEmail").innerHTML="";
+			errorEmail.style.color="green";
+            return true;
+		}
+    }
+    function validation() {
+        if(checkEmail() && mobileNumber())
+        return true;
+        else
+        return false;
+    }
     function del_employee_alert(id)
 	{
 		var choice = confirm("Are you sure you want to delete this employee? All approved appoinments assigned to this employee will be disapproved!!");
