@@ -67,12 +67,12 @@
 		<div class="row mt-3 mb-3">
 			<div class="col-md-4 offset-md-4">
 				<p class="text-center font-weight-bold">BOOK APPOINTMENT</p>
-				<form action="actions/appointment/add_appointment.php" class="form-group" method="POST">
+				<form id="bookForm" action="actions/appointment/add_appointment.php" class="form-group" method="POST">
 					<select name="services[]" id="services" class="form-control selectpicker" multiple title="Select Services" data-live-search="true" required>
 					<?php
 					foreach($services as $key=>$service)
 					{
-						echo " <option value=".$service[0].">".$service[1]."</option>";
+						echo " <option value=".$service[0].">{$service[1]}  ₹{$service[3]}</option>";
 					}
 					?>
 
@@ -87,14 +87,14 @@
 					<br>
 
 					<div class="input-group date" id="datetimepicker4" data-target-input="nearest">
-                    <input name="appointment_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4" required/>
+                    <input id="date_picker" onkeydown="return false" name="appointment_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4" required/>
                     <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
 					</div>
 					<br>
 					<div class="input-group date" id="datetimepicker3" data-target-input="nearest">
-                    <input name="appointment_time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" required/>
+                    <input id="time_picker" onkeydown="return false" name="appointment_time" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" required/>
                     <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-clock"></i></div>
                     </div>
@@ -107,10 +107,46 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+	$("#datetimepicker3").on('change.datetimepicker', function() {
+		checkBookTime();
+	});
+	$("#datetimepicker4").on('change.datetimepicker', function() {
+		checkBookTime();
+	});
+	$("#bookForm").on("submit", function(){
+
+		if(checkBookTime())
+			return true;
+		else
+			return false;
+ 	})
+
+
+	function checkBookTime()
+	{
+		let curr_time = moment().add(30, 'minutes').format('hh:mm A');
+		let given_time = document.getElementById("time_picker").value
+		let given_date = document.getElementById("date_picker").value
+		if(given_time != "" && given_date == moment().format('YYYY-MM-DD'))
+		{
+			if (moment(given_time, "h:mm:ss A").unix() > moment(curr_time, "h:mm:ss A").unix())
+			{
+				alert("Please book atleast 30 mins from current time")
+				document.getElementById("time_picker").value = moment().add(30, 'minutes').format('hh:mm A');
+				return false
+			}
+		}
+		return true;
+	}
+
+	</script>
+	<script type="text/javascript">
+	var deftime = moment().add(30, 'minutes');
             $(function () {
                 $('#datetimepicker3').datetimepicker({
 					format: 'LT',
-					disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: moment().format('h') ,m:moment().format('m')})], [moment({ h: 22 }), moment({ h: 24 } )]]
+					defaultDate: deftime,
+					disabledTimeIntervals: [[moment({ h: 0 }), moment({ h: 7})], [moment({ h: 21 }), moment({ h: 24 } )]]
                 });
             });
 		</script>
@@ -118,6 +154,7 @@
             $(function () {
                 $('#datetimepicker4').datetimepicker({
 					format: 'YYYY-MM-DD',
+					defaultDate: moment(),
 					minDate:moment().format('L')
                 });
             });

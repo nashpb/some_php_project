@@ -26,7 +26,7 @@ if(mysqli_query($db_conn,$sql_query))
     $sql_query = "INSERT INTO `users`(`user_name`, `password`, `user_type`, `user_info_id`) VALUES ('".$cust_username."','".$cust_password."','C',".$cust_info_id.")";
     if(mysqli_query($db_conn,$sql_query))
     {
-        $_SESSION['flash'] = 'Success!!! Added user with usernamr '.$cust_username.'.';
+        $_SESSION['flash'] = 'Success!!! Registration successful for '.$cust_username.'.';
     }
     else
     {
