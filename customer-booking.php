@@ -67,12 +67,12 @@
 		<div class="row mt-3 mb-3">
 			<div class="col-md-4 offset-md-4">
 				<p class="text-center font-weight-bold">BOOK APPOINTMENT</p>
-				<form id="bookForm" action="actions/appointment/add_appointment.php" class="form-group" method="POST">
+				<form id="bookForm" action="payment-2.php" class="form-group" method="POST">
 					<select name="services[]" id="services" class="form-control selectpicker" multiple title="Select Services" data-live-search="true" required>
 					<?php
 					foreach($services as $key=>$service)
 					{
-						echo " <option value=".$service[0].">{$service[1]}  ₹{$service[3]}</option>";
+						echo " <option value={$service[0]}|{$service[3]}>{$service[1]}  ₹{$service[3]}</option>";
 					}
 					?>
 

@@ -8,6 +8,8 @@ if(empty($_POST))
     header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/customer-booking.php');
     exit;
 }
+$payment = $_POST;
+$_POST = $_SESSION['booked_appointment'];
 
 $services = $_POST['services'];
 $service_type =  mysqli_real_escape_string($db_conn,$_POST['service_type']);
@@ -26,14 +28,36 @@ if(mysqli_query($db_conn,$sql_query_1))
     }
     if(mysqli_multi_query($db_conn,$sql_query_2))
     {
-        $_SESSION['flash'] = 'Success!!! Appointment Booked.';
-        header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
-        exit;
+        // $sql_query_3 = 'INSERT INTO `customer_payment`(`app_id`, `card_number`, `amount`) VALUES ({$app_id},{$payment["card_number"]},{(float)$payment["total"]})';
+        $sql_query_3 = 'INSERT INTO `customer_payment`(`app_id`, `card_number`, `amount`) VALUES ('.$app_id.',"'.$payment["card_number"].'", '.$payment["total"].')';
+        if(mysqli_query($db_conn,$sql_query_3))
+        {
+            $_SESSION['flash'] = 'Success!!! Appointment Booked.';
+            header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+            exit;
+        }
+        else{
+            del_appointment($db_conn,$app_id,true);
+        }
+    }
+    else
+    {
+        del_appointment($db_conn,$app_id,false);   
     }
 }
 header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/customer-booking.php');
 exit;
 
+function del_appointment($db_conn,$app_id,$services=false)
+{
+    $sql_query_1 = "DELETE FROM `appointments` WHERE id=".$app_id;
+    mysqli_query($db_conn,$sql_query_1);
+    if($services)
+    {
+        $sql_query_2 = "DELETE FROM `appointment_services_junc` WHERE appointment_id=".$app_id;
+        mysqli_query($db_conn,$sql_query_2);
+    }
+}
 
 
 
