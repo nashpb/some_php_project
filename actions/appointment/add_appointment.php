@@ -29,6 +29,10 @@ if(mysqli_query($db_conn,$sql_query_1))
     if(mysqli_multi_query($db_conn,$sql_query_2))
     {
         // $sql_query_3 = 'INSERT INTO `customer_payment`(`app_id`, `card_number`, `amount`) VALUES ({$app_id},{$payment["card_number"]},{(float)$payment["total"]})';
+        while(mysqli_more_results($db_conn))
+        {
+            mysqli_next_result($db_conn);
+        }
         $sql_query_3 = 'INSERT INTO `customer_payment`(`app_id`, `card_number`, `amount`) VALUES ('.$app_id.',"'.$payment["card_number"].'", '.$payment["total"].')';
         if(mysqli_query($db_conn,$sql_query_3))
         {
@@ -37,6 +41,7 @@ if(mysqli_query($db_conn,$sql_query_1))
             exit;
         }
         else{
+            var_dump(mysqli_error($db_conn));exit;
             del_appointment($db_conn,$app_id,true);
         }
     }
