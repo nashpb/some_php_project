@@ -336,7 +336,7 @@
                             $optinons = "PROBLEM LOADING SERVICES";
 							if(empty($comp_appointment[6]))
 							{
-								$comp_appointment[6] = "Not Assigned yet";
+								$comp_appointment[6] = "Not Assigned";
 							}
 							else
 							{

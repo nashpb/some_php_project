@@ -25,6 +25,10 @@ if(isset($_POST['login_hit']))
 			{
 				header('Location: index.php');
 			}
+			if($_SESSION['user_type'] == 'E')
+			{
+				header('Location: emp_appointments.php');
+			}
 			if($_SESSION['user_type'] == 'A')
 			{
 				header('Location: dashboard.php');

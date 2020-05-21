@@ -13,11 +13,21 @@
         <?php
         if(isset($_SESSION['uid'])):
         ?>
+            <?php
+            if($_SESSION['user_type'] == 'C'):
+            ?>
             <li><a href="index.php">Home</a></li>
             <li><a href="customer-booking.php">Book</a></li>
             <li><a href="view_my_appointment.php">View Appointments</a></li>
             <li><a href="customer-profile.php">Profile</a></li>
             <li><a href="logout.php">Logout</a></li>
+            <?php
+            else :
+            ?>
+            <li><a href="emp_appointments.php">View Appointments</a></li>
+            <li><a href="customer-profile.php">Profile</a></li>
+            <li><a href="logout.php">Logout</a></li>
+            <?php endif; ?>	
         <?php
         else :
         ?>
