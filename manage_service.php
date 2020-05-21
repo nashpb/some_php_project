@@ -142,7 +142,7 @@
 				<input id="edit_serv_price" type="number" class="form-control" name="ser_price" required>
 				<div class="text-right btn-group">
 					<button type="submit" class="btn btn-sm btn-success">Save</button>
-					<button class="btn btn-sm btn-danger cancel-form">Cancel</button>
+					<button type="button" class="btn btn-sm btn-danger cancel-form">Cancel</button>
 				</div>
 			</form>
 		</div>
