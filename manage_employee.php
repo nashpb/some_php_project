@@ -48,6 +48,33 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <title>Document</title>
+    <style>
+    .edit-employee-form
+    {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0,0,0,0.4);
+        display: none;
+    }
+    .form-container
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .inner-container
+    {
+        width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+
+    }
+</style>
 </head>
 <body>
 <?= $flash_div ?>
@@ -55,7 +82,7 @@
     <div class="row mt-3 mb-3">
         <div class="col-md-4 offset-md-4">
             <p class="text-center font-weight-bold">ADD EMPLOYEE</p>
-            <form action="actions/employee/add_employee.php" class="form-group" method="POST" onSubmit="validation()">
+            <form action="actions/employee/add_employee.php" class="form-group" method="POST" onSubmit="return validation()">
                 <input name="Name" type="text" class="form-control" placeholder="Name" required>
                 <input name="Phone" id="phone" type="number" class="form-control" placeholder="Mobile" onfocusout="mobileNumber();" required><div id="errorPhone" ></div>
                 <input name="Email" id="emailVal" type="email" class="form-control" placeholder="Email" onfocusout="checkEmail();" required><div id="errorEmail" ></div>
@@ -96,7 +123,7 @@
                                     <td>'.$employee[3].'</td>
                                     <td>
                                     <div class="btn-group btn-group-sm">
-									<button type="button" class="btn btn-warning  edit-service" onclick=edit_employee('.$employee[0].')>Edit</button>
+									<button type="button" class="btn btn-warning  edit-employee" onclick=edit_employee('.$employee[0].')>Edit</button>
 									<button type="button" class="btn btn-danger"  onclick=del_employee_alert('.$employee[0].')>Delete</button>
                                     </div>
                                     </td>
@@ -113,6 +140,24 @@
                 <!-- </tr> -->
             </tbody>
         </table>   
+    </div>
+    <div class="edit-employee-form">
+	<div class="form-container">
+		<div class="inner-container">
+			<form action="actions/employee/edit_employee.php" class="form-group" method="POST" onSubmit="return validation1()">
+				<input id="edit_empl_id" type="hidden" class="form-control" name="empl_id">
+				<input id="edit_empl_name" placeholder="Name" type="text" class="form-control" name="empl_name" required>
+				<input id="edit_empl_mobile" placeholder="Mobile" type="number" class="form-control" name="empl_mobile" onfocusout="mobileNumber1();" required><div id="errorPhone1" ></div>
+                <input id="edit_empl_email" placeholder="Email" type="email" class="form-control" name="empl_email" onfocusout="checkEmail1();" required><div id="errorEmail1" ></div>
+                <input id="edit_empl_username" placeholder="Username" type="text" class="form-control" name="empl_user" required>
+                <input id="edit_empl_password" placeholder="Password" type="password" class="form-control" name="empl_password" required>
+				<div class="text-right btn-group">
+					<button type="submit" class="btn btn-sm btn-success">Save</button>
+					<button type="button" class="btn btn-sm btn-danger cancel-form">Cancel</button>
+				</div>
+			</form>
+		</div>
+	</div>
     </div>
     <script>
     function mobileNumber()
@@ -157,6 +202,48 @@
         else
         return false;
     }
+    function mobileNumber1()
+    {
+        var Number = document.getElementById("edit_empl_mobile");
+        var IndNum =/^[6-9]\d{9}$/;
+        if(!IndNum.test(Number.value)){
+            document.getElementById("errorPhone1").innerHTML="please enter valid mobile number";
+            edit_empl_mobile.classList.add("invalid");
+            errorPhone1.style.color="red";
+            edit_empl_mobile.focus();
+                return false ;
+        }else{
+            document.getElementById("errorPhone1").innerHTML="";
+            edit_empl_mobile.classList.add("valid");
+            errorPhone1.style.color="green";
+            
+            return true;
+        }
+    }
+    function checkEmail1() {
+        var email = document.getElementById("edit_empl_email");
+        var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         
+		if (!filter.test(email.value))
+		{
+			edit_empl_email.classList.add("invalid");
+			document.getElementById("errorEmail1").innerHTML="please enter valid Email ID";
+			errorEmail1.style.color="red";
+		    edit_empl_email.focus();
+			return false;
+        }else{
+			edit_empl_email.classList.add("valid");
+			document.getElementById("errorEmail1").innerHTML="";
+			errorEmail1.style.color="green";
+            return true;
+		}
+    }
+    function validation1() {
+        if(checkEmail1() && mobileNumber1())
+        return true;
+        else
+        return false;
+    }
     function del_employee_alert(id)
 	{
 		var choice = confirm("Are you sure you want to delete this employee? All approved appoinments assigned to this employee will be disapproved!!");
@@ -164,7 +251,42 @@
 		{
 			location.href="actions/employee/del_employee.php?id="+id;
 		}
-	}
+    }
+    function edit_employee(id)
+    {
+        $.ajax({
+			url:"actions/employee/fetch_employee.php",
+			method:"POST",
+			data:{id:id},
+			dataType:"json",
+			success:function(data)
+			{
+				// console.log('lol',data[0]);	
+				$('#edit_empl_id').val(data[0]);
+				$('#edit_empl_name').val(data[1]);
+				$('#edit_empl_mobile').val(data[2]);
+                $('#edit_empl_email').val(data[3]);
+                $('#edit_empl_username').val(data[4]);
+                $('#edit_empl_password').val(data[5]);
+                document.getElementById("errorPhone1").innerHTML="";
+                edit_empl_mobile.classList.add("valid");
+                errorPhone1.style.color="green";
+                edit_empl_email.classList.add("valid");
+			    document.getElementById("errorEmail1").innerHTML="";
+			    errorEmail1.style.color="green";
+				$(".edit-employee-form").fadeIn("fast");
+			},
+			error:function()
+			{
+				alert("Something Went Wrong!");
+			}
+		})
+    }
+    $(document).ready(function(){
+		$(".cancel-form").click(function(){
+			$(".edit-employee-form").fadeOut("fast");
+		})
+	})
     </script>
 </body>
 </html>
