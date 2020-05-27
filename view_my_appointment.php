@@ -281,6 +281,14 @@
 				location.href="actions/appointment/cancel_appointment.php?id="+id;
 			}
 		}
+		function print_bill_alert(id)
+		{
+			var choice = confirm("Are you sure you want to generate the bill?");
+			if(choice)
+			{
+				location.href="actions/bill/print_bill.php?id="+id;
+			}
+		}
 
 	</script>
 

@@ -1,17 +1,86 @@
 <?php
 require('./fpdf.php');
+include_once('../../configs/db.php');
+include_once('../../configs/login_check.php');
 
 class PDF extends FPDF
 {
 
 
-function Invoice()
+function Invoice($db_conn)
 {
+	if(empty($_REQUEST['id']))
+	{
+		$_SESSION['flash']  = "ERROR!!! Something Went wrong!Could not generate bill!";
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+		exit;
+	}
 	$header = ['SERVICES','PRICE'];
-	$data = [['Hair wash',100],['Hari cut',70]];
-	$this->Image('logo.png',10,6,30);
+	$on_appointments = [];
+	$sql_query = 'SELECT * FROM `appointments` WHERE `id` = '.$_REQUEST['id'];
+	$result = mysqli_query($db_conn,$sql_query);
+	$data = [];
+	$total = 0.00;
+	if($result)
+	{
+		$on_appointments = mysqli_fetch_all($result);
+		if(!empty($on_appointments))
+		{
+			$sel_services = [];
+			$sql_query = "SELECT `service_id` FROM `appointment_services_junc` WHERE `appointment_id` = ".$on_appointments[0][0];
+			$result = mysqli_query($db_conn,$sql_query);
+			if($result)
+			{
+				$sel_services = mysqli_fetch_all($result);
+				if(!empty($sel_services))
+				{
+					foreach($sel_services as $key_1=>$sel_service)
+					{
+						$sql_query = "SELECT `name`,`price` FROM `services` WHERE `id` =".$sel_service[0];
+						$result = mysqli_query($db_conn,$sql_query);
+						if($result)
+						{
+							// var_dump(mysqli_fetch_array($result)['name'],mysqli_fetch_array($result)['price']);
+							$temp_array =[];
+							$service_array = mysqli_fetch_all($result);
+							$temp_array= $service_array[0];
+							$total += $temp_array[1];
+							array_push($data,$temp_array);
+						}
+						else
+						{
+							$_SESSION['flash']  = "ERROR!!! Something Went wrong!Could not generate bill!";
+							header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+							exit;	
+						}
+					}
+					// var_dump($data);
+					// exit;
+				}
+				else
+				{
+					$_SESSION['flash']  = "ERROR!!! Something Went wrong!Could not generate bill!";
+					header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+					exit;	
+				}
+			}
+			else
+			{
+				$_SESSION['flash']  = "ERROR!!! Something Went wrong!Could not generate bill!";
+				header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+				exit;	
+			}
 
-	$total = 170;
+		}
+		else
+		{
+			$_SESSION['flash']  = "ERROR!!! Something Went wrong!Could not generate bill!";
+			header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/view_my_appointment.php');
+			exit;	
+		}
+	}
+	
+	$this->Image('logo.png',10,6,30);
 	$this->SetMargins(14,14,14);
 	$this->SetLineWidth(3);
 	$this->Cell(80);
@@ -61,6 +130,8 @@ function Invoice()
 $pdf = new PDF();
 $pdf->SetFont('Arial','',14);
 $pdf->AddPage();
-$pdf->Invoice();
-$pdf->Output('D',"Bill.pdf");
+$pdf->Invoice($db_conn);
+$pdf->Output('D',"Bill".date("Y-m-d-h:i:s-A").".pdf");
+header('Location:'.$_SERVER["HTTP_REFERER"]);
+exit;
 ?>
