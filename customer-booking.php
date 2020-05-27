@@ -24,9 +24,15 @@
 		unset($_SESSION['flash']);
 	}
 
-	//LOAD SERVICES SECTION
+	//LOAD SERVICES SECTION BASED ON CUSTOMER GENDER
+	$sql_query = "SELECT * from `customers` WHERE id=".$_SESSION['uid'];
+    $result = mysqli_query($db_conn,$sql_query);
+	if($result)
+	{
+		$cust = mysqli_fetch_all($result);
+    }
 	$services = [];
-	$sql_query = "select * from services";
+	$sql_query = "select * from services where gender='".$cust[0][3]."'";
 	$result = mysqli_query($db_conn,$sql_query);
 	if($result)
 	{
@@ -70,9 +76,16 @@
 				<form id="bookForm" action="payment-2.php" class="form-group" method="POST">
 					<select name="services[]" id="services" class="form-control selectpicker" multiple title="Select Services" data-live-search="true" required>
 					<?php
-					foreach($services as $key=>$service)
+					if(!empty($services))
 					{
-						echo " <option value={$service[0]}|{$service[3]}>{$service[1]}  ₹{$service[3]}</option>";
+						foreach($services as $key=>$service)
+						{
+							echo " <option value={$service[0]}|{$service[3]}>{$service[1]}  ₹{$service[3]}</option>";
+						}
+					}	
+					else
+					{
+						echo " <option disabled>No Services Available</option>";
 					}
 					?>
 

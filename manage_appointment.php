@@ -140,6 +140,7 @@
             <thead>
                 <tr>
                     <th>Sl.no</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Address</th>
@@ -191,6 +192,7 @@
                             echo 
                             '<tr>
                                 <td>'.($key+1).'</td>
+                                <td>APP-'.$on_appointment[0].'</td>
                                 <td>'.$customer_details[0][1].'</td>
                                 <td>'.$customer_details[0][3].'</td>
                                 <td>'.$customer_details[0][4].'</td>
@@ -219,6 +221,7 @@
             <thead>
                 <tr>
                     <th>Sl.no</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Address</th>
@@ -285,6 +288,7 @@
                             echo 
                             '<tr>
                                 <td>'.($key+1).'</td>
+                                <td>APP-'.$approved_appointment[0].'</td>
                                 <td>'.$customer_details[0][1].'</td>
                                 <td>'.$customer_details[0][3].'</td>
                                 <td>'.$customer_details[0][4].'</td>
@@ -313,6 +317,7 @@
             <thead>
                 <tr>
                     <th>Sl.no</th>
+                    <th>ID</th>
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Address</th>
@@ -379,6 +384,7 @@
                             echo 
                             '<tr>
                                 <td>'.($key+1).'</td>
+                                <td>APP-'.$comp_appointment[0].'</td>
                                 <td>'.$customer_details[0][1].'</td>
                                 <td>'.$customer_details[0][3].'</td>
                                 <td>'.$customer_details[0][4].'</td>

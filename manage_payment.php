@@ -1,5 +1,15 @@
 <?php
     include('dashboard_header.php');
+    include_once('configs/db.php');
+	include_once('configs/login_check.php');
+    $payments = [];
+	$sql_query = 'SELECT * FROM `customer_payment`';
+	$result = mysqli_query($db_conn,$sql_query);
+	if($result)
+	{
+		$payments = mysqli_fetch_all($result);
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,31 +34,51 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Transection ID</th>
-                    <th>Cust.ID</th>
-                    <th>Name</th>
-                    <th>Date</th>
+                    <th>Sl.no</th>
+                    <th>Appointment ID</th>
+                    <th>Customer Name</th>
+                    <th>Date | Time</th>
+                    <th>Card Number</th>
                     <th>Amount</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <?php 
+                    foreach($payments as $key=>$payment)
+                    {
+                        $sql_query = 'SELECT * FROM `appointments` WHERE id='.$payment[1];
+                        $app = '';
+                        $cust = '';
+                        $result = mysqli_query($db_conn,$sql_query);
+                    	if($result)
+	                    {
+		                    $app = mysqli_fetch_all($result);
+                        }
+                        $sql_query = "SELECT * from `customers` WHERE id=".$app[0][1];
+                        $result = mysqli_query($db_conn,$sql_query);
+                    	if($result)
+	                    {
+		                    $cust = mysqli_fetch_all($result);
+                        }
+                        echo 
+                            '<tr>
+                                <td>'.($key+1).'</td>
+                                <td>APP-'.$app[0][0].'</td>
+                                <td>'.$cust[0][1].'</td>
+                                <td>'.$payment[4].'</td>
+                                <td>'.$payment[2].'</td>
+                                <td>'.$payment[3].'</td>
+                            </tr>';
+                    }
+                ?>
+                <!-- <tr>
                     <td>SBI0012343283</td>
-                    <td>001</td>
+                    <td>APP-1</td>
                     <td>Rahul</td>
                     <td>14/03/2020</td>
+                    <td>4716 1089 9971 6531</td>
                     <td><span class="font-weight-bold">&#8377;</span> 150</td>
-                    <td><button class="btn btn-sm btn-danger">Failed</button></td>
-                </tr>
-                <tr>
-                    <td>SBI0012343284</td>
-                    <td>001</td>
-                    <td>Rahul</td>
-                    <td>14/03/2020</td>
-                    <td><span class="font-weight-bold">&#8377;</span> 150</td>
-                    <td><button class="btn btn-sm btn-success">Successful</button></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>   
     </div>
