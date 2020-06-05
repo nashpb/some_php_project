@@ -501,7 +501,7 @@
 					<?php
 					foreach($employees as $key=>$employee)
 					{
-						echo " <option value=".$employee[0].">".$employee[1]."</option>";
+						echo " <option value=".$employee[0].">".$employee[1]." (".$employee[4].")</option>";
 					}
 					?>
                 </select>
