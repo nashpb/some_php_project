@@ -14,9 +14,11 @@ $emp_username =  mysqli_real_escape_string($db_conn,$_POST['Username']);
 $emp_password =  mysqli_real_escape_string($db_conn,$_POST['Password']);
 $emp_phone =  mysqli_real_escape_string($db_conn,$_POST['Phone']);
 $emp_email =  mysqli_real_escape_string($db_conn,$_POST['Email']);
+$emp_gender =  mysqli_real_escape_string($db_conn,$_POST['Gender']);
+$emp_designation =  mysqli_real_escape_string($db_conn,$_POST['Designation']);
 
 
-$sql_query = "INSERT INTO `employees`(`name`, `email`,`phone_no`) VALUES ('".$emp_name."','".$emp_email."','".$emp_phone."')";
+$sql_query = "INSERT INTO `employees`(`name`, `email`,`phone_no`,`gender`,`designation`) VALUES ('".$emp_name."','".$emp_email."','".$emp_phone."','".$emp_gender."','".$emp_designation."')";
 $_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not add employee.";
 
 if(mysqli_query($db_conn,$sql_query))

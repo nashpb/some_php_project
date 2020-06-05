@@ -13,11 +13,13 @@ $emp_id = mysqli_real_escape_string($db_conn,$_POST['empl_id']);
 $emp_name = mysqli_real_escape_string($db_conn,$_POST['empl_name']);
 $emp_mobile = mysqli_real_escape_string($db_conn,$_POST['empl_mobile']);
 $emp_email = mysqli_real_escape_string($db_conn,$_POST['empl_email']);
+$emp_gender =  mysqli_real_escape_string($db_conn,$_POST['empl_gender']);
+$emp_designation =  mysqli_real_escape_string($db_conn,$_POST['empl_desg']);
 $emp_user = mysqli_real_escape_string($db_conn,$_POST['empl_user']);
 $emp_password = mysqli_real_escape_string($db_conn,$_POST['empl_password']);
 
 
-$sql_query = "UPDATE employees set name='".$emp_name."', phone_no='".$emp_mobile."', email='".$emp_email."' WHERE id=".$emp_id;
+$sql_query = "UPDATE employees set name='".$emp_name."', phone_no='".$emp_mobile."', email='".$emp_email."', designation='".$emp_designation."', gender='".$emp_gender."' WHERE id=".$emp_id;
 
 $_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not edit service ".$emp_name.'.';
 if(mysqli_query($db_conn,$sql_query))

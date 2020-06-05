@@ -26,7 +26,7 @@
             else :
             ?>
             <li><a href="emp_appointments.php">View Appointments</a></li>
-            <li><a href=""><?=  $_SESSION['uname']?></a></li>
+            <li><a href="employee-profile.php">Profile(<?=  $_SESSION['uname']?>)</a></li>
             <li><a href="logout.php">Logout</a></li>
             <?php endif; ?>	
         <?php

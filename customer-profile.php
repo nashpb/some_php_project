@@ -117,7 +117,7 @@
                         </select>
                     </div>
                     <div>
-                        <label for="phone">Address</label>
+                        <label for="address">Address</label>
                         <textarea name="address" id="address" class="form-control" readonly><?= $customer[0][5]?></textarea>
                     </div>
                     <div class="text-right">

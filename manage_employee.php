@@ -47,6 +47,10 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Multi Select -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
     <title>Document</title>
     <style>
     .edit-employee-form
@@ -86,6 +90,12 @@
                 <input name="Name" type="text" class="form-control" placeholder="Name" required>
                 <input name="Phone" id="phone" type="number" class="form-control" placeholder="Mobile" onfocusout="mobileNumber();" required><div id="errorPhone" ></div>
                 <input name="Email" id="emailVal" type="email" class="form-control" placeholder="Email" onfocusout="checkEmail();" required><div id="errorEmail" ></div>
+                <input name="Designation" id="desig" type="text" class="form-control" placeholder="Designation" required>
+                <select id="gender" name="Gender" class="form-control selectpicker" title="Select Gender" required>
+                    <!-- <option disabled selected>Select A Gender</option> -->
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <input name="Username" type="text" class="form-control" placeholder="Username" required>
                 <input name="Password" type="password" class="form-control" placeholder="Password" required>
                 <input type="submit" value="Add Employee" class="btn btn-sm btn-primary float-right">
@@ -103,6 +113,8 @@
                     <td>Name</td>
                     <td>Mobile</td>
                     <td>Email</td>
+                    <td>Gender</td>
+                    <td>Designation</td>
                     <td>Actions</td>
                 </tr>
             </thead>
@@ -121,6 +133,8 @@
                                     <td>'.$employee[1].'</td>
                                     <td>'.$employee[2].'</td>
                                     <td>'.$employee[3].'</td>
+                                    <td>'.$employee[5].'</td>
+                                    <td>'.$employee[4].'</td>
                                     <td>
                                     <div class="btn-group btn-group-sm">
 									<button type="button" class="btn btn-warning  edit-employee" onclick=edit_employee('.$employee[0].')>Edit</button>
@@ -149,6 +163,12 @@
 				<input id="edit_empl_name" placeholder="Name" type="text" class="form-control" name="empl_name" required>
 				<input id="edit_empl_mobile" placeholder="Mobile" type="number" class="form-control" name="empl_mobile" onfocusout="mobileNumber1();" required><div id="errorPhone1" ></div>
                 <input id="edit_empl_email" placeholder="Email" type="email" class="form-control" name="empl_email" onfocusout="checkEmail1();" required><div id="errorEmail1" ></div>
+                <input name="empl_desg" id="edit_empl_desg" type="text" class="form-control" placeholder="Designation" required>
+                <select id="edit_empl_gender" name="empl_gender" class="form-control" title="Select Gender" required>
+                    <!-- <option disabled selected>Select A Gender</option> -->
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
                 <input id="edit_empl_username" placeholder="Username" type="text" class="form-control" name="empl_user" required>
                 <input id="edit_empl_password" placeholder="Password" type="password" class="form-control" name="empl_password" required>
 				<div class="text-right btn-group">
@@ -261,13 +281,15 @@
 			dataType:"json",
 			success:function(data)
 			{
-				// console.log('lol',data[0]);	
+				console.log('lol',data);	
 				$('#edit_empl_id').val(data[0]);
 				$('#edit_empl_name').val(data[1]);
 				$('#edit_empl_mobile').val(data[2]);
                 $('#edit_empl_email').val(data[3]);
-                $('#edit_empl_username').val(data[4]);
-                $('#edit_empl_password').val(data[5]);
+                $('#edit_empl_desg').val(data[4]);
+                $('#edit_empl_gender').val(data[5]);
+                $('#edit_empl_username').val(data[6]);
+                $('#edit_empl_password').val(data[7]);
                 document.getElementById("errorPhone1").innerHTML="";
                 edit_empl_mobile.classList.add("valid");
                 errorPhone1.style.color="green";
