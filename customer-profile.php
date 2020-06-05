@@ -73,7 +73,7 @@
                 <div class="text-right">
                     <button id="edit-profile" class="btn btn-sm btn-primary">Edit Profile</button>
                 </div>
-                <form method="POST" action="actions/registration/edit_customer.php" class="form-group">
+                <form method="POST" action="actions/registration/edit_customer.php" class="form-group" onSubmit="return validation()">
                     <div>
                         <input name="id" id="id" type="hidden" class="form-control" value=<?= $customer[0][0]?> readonly>
                     </div>
@@ -87,11 +87,11 @@
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input name="email" id="email" type="text" class="form-control" value=<?= $customer[0][2]?> readonly>
+                        <input name="email" id="email" type="text" onfocusout="checkEmail();" class="form-control" value=<?= $customer[0][2]?> readonly><div id="errorEmail"></div>
                     </div>
                     <div>
                         <label for="phone">Phone</label>
-                        <input name="phone" id="phone" type="text" class="form-control" value=<?= $customer[0][4]?> readonly>
+                        <input name="phone" id="phone" type="number" onfocusout="mobileNumber();" class="form-control" value=<?= $customer[0][4]?> readonly><div id="errorPhone"></div>
                     </div>
                     <div>
                         <label for="gender">Gender</label>
@@ -131,6 +131,47 @@
 </body>
 </html>
 <script>
+    function mobileNumber()
+    {
+        var Number = document.getElementById("phone");
+        var IndNum =/^[6-9]\d{9}$/;
+        if(!IndNum.test(Number.value)){
+            document.getElementById("errorPhone").innerHTML="please enter valid mobile number";
+            phone.classList.add("invalid");
+            errorPhone.style.color="red";
+            phone.focus();
+            return false ;
+        }else{
+            document.getElementById("errorPhone").innerHTML="";
+            phone.classList.add("valid");
+            errorPhone.style.color="green";
+            return true;
+        }
+    }
+    function checkEmail() {
+        var email = document.getElementById("email");
+        var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+         
+		if (!filter.test(email.value))
+		{
+			email.classList.add("invalid");
+			document.getElementById("errorEmail").innerHTML="please enter valid Email ID";
+			errorEmail.style.color="red";
+		    email.focus();
+			return false;
+        }else{
+			email.classList.add("valid");
+			document.getElementById("errorEmail").innerHTML="";
+			errorEmail.style.color="green";
+            return true;
+		}
+    }
+    function validation() {
+        if(checkEmail() && mobileNumber())
+        return true;
+        else
+        return false;
+    }
     $(document).ready(function(){
         $("#edit-profile").click(function(){
             $(".form-control").removeAttr("readonly");
