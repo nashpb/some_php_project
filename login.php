@@ -81,6 +81,8 @@ if(isset($_SESSION['flash']))
 				<div class="input-container">
 					<input type="text" class="form-control" placeholder="Username" name="username" required>
 					<input type="password" class="form-control" placeholder="Password" name="password" required>
+					<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/forgot_username.php'?>">Forgot Username?</a>
+					<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/forgot_password.php'?>">Forgot Password?</a>
 					<?php 
 					if(isset($_SESSION['cred_check_fail']) && $_SESSION['cred_check_fail'] == 'true')
 					{
