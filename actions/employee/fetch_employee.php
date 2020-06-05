@@ -14,7 +14,7 @@ $result = mysqli_query($db_conn,$sql_query);
 if($result)
 {
     $row = mysqli_fetch_array($result);
-    $sql_query = "select * from users where user_info_id=".$emp_id;
+    $sql_query = "select * from users where user_info_id=".$emp_id." AND user_type='E'";
     $result = mysqli_query($db_conn,$sql_query);
     if($result)
     {

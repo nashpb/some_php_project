@@ -17,6 +17,7 @@ if(isset($_POST['login_hit']))
 		$count = count($row);
 
         if($count > 0){
+			$_SESSION['id'] = $row['id'];
 			$_SESSION['uname'] = $row['user_name'];
 			$_SESSION['uid'] = $row['user_info_id'];
 			$_SESSION['user_type'] = $row['user_type'];

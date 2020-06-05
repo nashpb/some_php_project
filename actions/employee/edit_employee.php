@@ -22,10 +22,20 @@ $sql_query = "UPDATE employees set name='".$emp_name."', phone_no='".$emp_mobile
 $_SESSION['flash']  = "ERROR!!! Something Went wrong! Could not edit service ".$emp_name.'.';
 if(mysqli_query($db_conn,$sql_query))
 {
-    $sql_query = "UPDATE users set user_name='".$emp_user."', password='".$emp_password."' WHERE user_info_id=".$emp_id;   
+    $sql_query = "UPDATE users set user_name='".$emp_user."', password='".$emp_password."' WHERE user_info_id=".$emp_id." AND user_type='E'";   
     if(mysqli_query($db_conn,$sql_query))
     {
         $_SESSION['flash'] = 'Success!!! Edited employee '.$emp_name.'.';
+    }
+    else
+    {
+        $error_msg = mysqli_error($db_conn);
+        if (strpos($error_msg, 'Duplicate entry') !== false) 
+        {
+            $_SESSION['flash']  = "ERROR!!! Something Went wrong! Username exists. Please try another one. Every Other Changed detail Updated";
+        }
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/'.explode("/",$_SERVER['PHP_SELF'],4)[1].'/manage_employee.php');
+        exit;
     }
 }
 

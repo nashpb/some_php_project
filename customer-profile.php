@@ -78,6 +78,10 @@
                         <input name="id" id="id" type="hidden" class="form-control" value=<?= $customer[0][0]?> readonly>
                     </div>
                     <div>
+                        <label for="username">Username</label>
+                        <input name="username" id="username" type="text" class="form-control" value=<?= $_SESSION['uname']?> readonly>
+                    </div>
+                    <div>
                         <label for="name">Name</label>
                         <input name="name" id="name" type="text" class="form-control" value=<?= $customer[0][1]?> readonly>
                     </div>
@@ -139,6 +143,7 @@
             $(this).hide();
         });
         $("#cancel-change").click(function(){
+            username.value="<?=$_SESSION['uname'];?>";
             name.value="<?=$customer[0][1];?>";
             email.value="<?=$customer[0][2];?>";
             gender.value="<?=$customer[0][3];?>";
